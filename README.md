@@ -1,2 +1,61 @@
-# Small-Models-Big-Insights-Leveraging-Slim-Proxy-Models-to-Decide-When-and-What-to-Retrieve-for-LLMs
-determine when retrieval is necessary for user questions
+# SlimPLM: A Novel Method for Retrieval-Enhanced Language Models
+
+## 研究背景
+
+1. **研究问题**: 该文章主要探讨的问题是如何在大语言模型 (LLMs) 中有效确定是否需要使用检索。现有方法通常依赖于LLMs的明确的检索增强生成，但会在高效性上面临挑战。
+
+2. **研究目标**: 该研究的目标是提出一种新的方法：如何在不显式检索的情况下生成答案，减少对检索的依赖，来解决高效性和准确性的平衡问题。
+
+3. **相关性**: 该问题的核心是对比当前主流的检索增强生成 (RAG) 方法，基于此提出一种不显式检索的新型方法。该方法可以大幅提升检索效率，但在安全性和准确性等方面仍有待探讨。
+
+## 研究方法
+
+该论文提出了一种名为SlimPLM的新方法，用于解决在LLMs在知识获取过程中如何以及是否触发检索的问题，具体做法为：
+
+1. **代理模型生成启发式答案**：首先，使用一个参数较少的代理模型 (proxy model) 生成用户问题的启发式答案 (heuristic answer)。这个答案有两个用途：（1）用于判断是否需要检索；（2）用于在无需检索时提供解答。
+
+2. **算法公式**: 
+    - 代理模型公式如下：
+    
+    $$
+    \hat{a} = PM(x)
+    $$
+
+    其中，\(x\) 是用户的提问，\( \hat{a} \) 是代理模型给出的启发式解答。
+
+    ```
+    Heuristic answer:{Heuristic Answer}
+    Question:{user question}
+    ```
+
+## 实验设计
+
+1. **数据集**: 在六个广泛使用的数据集上（QA）数据集进行评估，包括Natural Questions (NQ)、Trivia-QA、ASQA、MuSiQue和ELI5。
+
+2. **评测指标**: 对于长文答案的生成，使用Rouge Score (ROUGE) 评估答案质量；对于事实性问题的回答，使用Exact Match (EM)指标。
+
+3. **基线方法**: 选择了两种不同的提示生成方法（Vanilla Chat和CoT Prompting）以及几种流行的检索增强方法 (Direct RAG、FLARE、Self-Eval、Self-Ask/RSKR-KNN)。
+
+4. **实验对象**: 实验基于不同LLMs (Llama2-70B, ChatGPT/GPT-4, PaLM-2) 进行了测试，最终对比了Llama2-70B-Chat和Llama2-7B-Chat的表现。
+
+## 结果与分析
+
+1. **总体结果**: SlimPLM在不显式检索的场景上表现优越，达到了预期的效果，减少了对检索的依赖并显著提高了效率。
+
+2. **详细结果**: 在多项数据集中，该方法在生成长答案和回答事实性问题时表现良好，避免了不必要的检索，并通过启发式答案提高了任务效率。
+
+3. **实验分析图表**: 
+    - 结果表明：SlimPLM的启发式检索机制在无需检索的情况下生成了高效、准确的解答，与直接检索的方法相比减少了延迟。
+
+![实验分析图](figure.png)
+
+## 总体结论
+
+该论文提出了一种新型的RAG模式，利用启发式SlimPLM构建的代理模型生成答案，显著提高了LLMs的性能表现。SlimPLM的启发式答案生成不仅减少了检索的依赖，还提高了生成答案的准确性和效率，未来可能成为优化LLMs的有效方法。
+
+---
+
+**Figure**:
+
+![SlimPLM架构图](architecture.png)
+
