@@ -1,7 +1,5 @@
 # Small Models, Big Insights: Leveraging Slim Proxy Models to Decide When and What to Retrieve for LLMs
 
-**Authors**: Jiejun Tan, Zhicheng Dou, Yutao Zhu, Peidong Guo, Kun Fang, Ji-Rong Wen  
-**Affiliation**: Gaoling School of Artificial Intelligence, Renmin University of China, Baichuan Intelligent Technology
 
 ## Research Background
 
